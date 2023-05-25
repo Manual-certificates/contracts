@@ -3,14 +3,7 @@ import { Reverter } from "@/test/helpers/reverter";
 import { TokenContract, TokenContractV2 } from "@ethers-v5";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
-import { contract, ethers, upgrades } from "hardhat";
-
-enum BurnAuth {
-  IssuerOnly,
-  OwnerOnly,
-  Both,
-  Neither,
-}
+import { ethers, upgrades } from "hardhat";
 
 describe("TokenContract", () => {
   const reverter = new Reverter();

@@ -57,4 +57,10 @@ interface ITokenContract {
      * @return The base URI of the token.
      */
     function baseURI() external view returns (string memory);
+
+    /**
+     * @notice Returns the next token id.
+     * @return The next token id.
+     */
+    function nextTokenId() external view returns (uint256);
 }
