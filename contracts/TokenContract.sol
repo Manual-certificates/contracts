@@ -68,7 +68,8 @@ contract TokenContract is
     function _authorizeUpgrade(address) internal override onlyOwner {}
 
     function _isApprovedOrOwner(address, uint256) internal view override returns (bool) {
-        return _msgSender() == owner();
+        _checkOwner();
+        return true;
     }
 
     function _baseURI() internal view override returns (string memory) {

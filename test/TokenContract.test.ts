@@ -185,14 +185,15 @@ describe("TokenContract", () => {
 
     describe("#SBT", function () {
       it("should revert if user transfers token", async function () {
+        const reason = "Ownable: caller is not the owner";
         await tokenContract.mint(SECOND.address, defaultTokenURI);
         await expect(tokenContract.connect(SECOND).transferFrom(SECOND.address, THIRD.address, 0)).to.be.revertedWith(
-          "ERC721: caller is not token owner or approved"
+          reason
         );
 
         await tokenContract.connect(SECOND).approve(THIRD.address, 0);
         await expect(tokenContract.connect(THIRD).transferFrom(SECOND.address, THIRD.address, 0)).to.be.revertedWith(
-          "ERC721: caller is not token owner or approved"
+          reason
         );
       });
 
