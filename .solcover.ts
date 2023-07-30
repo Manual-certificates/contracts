@@ -1,4 +1,4 @@
 export = {
-  skipFiles: [],
+  skipFiles: ["/mock", "/interfaces"],
   configureYulOptimizer: true,
 };

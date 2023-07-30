@@ -4,14 +4,21 @@ import { artifacts } from "hardhat";
 import { parseConfig } from "./helpers/deployHelper";
 
 const ERC1967Proxy = artifacts.require("ERC1967Proxy");
+const ProxyBeacon = artifacts.require("ProxyBeacon");
 const TokenContract = artifacts.require("TokenContract");
+const TokenContractDeployer = artifacts.require("TokenContractDeployer");
 
 export = async (deployer: Deployer, logger: Logger) => {
   const tokenContract = await deployer.deploy(TokenContract);
 
+  const proxyBeacon = await deployer.deploy(ProxyBeacon);
+  await proxyBeacon.upgrade(tokenContract.address);
+
   const proxyTokenContract = await deployer.deploy(ERC1967Proxy, tokenContract.address, "0x");
 
   const config = parseConfig();
+
+  const tokenContractDeployer = await deployer.deploy(TokenContractDeployer, proxyBeacon.address);
 
   logger.logTransaction(
     await (
@@ -29,6 +36,7 @@ export = async (deployer: Deployer, logger: Logger) => {
 
   logger.logContracts(
     ["TokenContract implementation", tokenContract.address],
-    ["TokenContract proxy", proxyTokenContract.address]
+    ["TokenContract proxy", proxyTokenContract.address],
+    ["TokenContractDeployer", tokenContractDeployer.address]
   );
 };
