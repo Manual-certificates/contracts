@@ -23,13 +23,15 @@ contract TokenContract is
         string memory baseURI_,
         address newOwner_
     ) external override initializer {
-        _transferOwnership(newOwner_);
+        __Ownable_init();
 
         __UUPSUpgradeable_init();
 
         __ERC721_init(tokenName_, tokenSymbol_);
 
         setBaseURI(baseURI_);
+
+        transferOwnership(newOwner_);
     }
 
     function mint(
