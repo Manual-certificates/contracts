@@ -20,9 +20,10 @@ contract TokenContract is
     function __TokenContract_init(
         string memory tokenName_,
         string memory tokenSymbol_,
-        string memory baseURI_
+        string memory baseURI_,
+        address newOwner_
     ) external override initializer {
-        __Ownable_init();
+        _transferOwnership(newOwner_);
 
         __UUPSUpgradeable_init();
 
