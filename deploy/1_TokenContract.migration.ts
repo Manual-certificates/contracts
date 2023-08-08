@@ -23,16 +23,9 @@ export = async (deployer: Deployer, logger: Logger) => {
   logger.logTransaction(
     await (
       await TokenContract.at(proxyTokenContract.address)
-    ).__TokenContract_init(config.tokenName, config.tokenSymbol, config.baseUri),
+    ).__TokenContract_init(config.tokenName, config.tokenSymbol, config.baseUri, config.newOwner),
     "Initialize TokenContract"
   );
-
-  if (config.newOwner) {
-    logger.logTransaction(
-      await (await TokenContract.at(proxyTokenContract.address)).transferOwnership(config.newOwner),
-      "Transfer ownership"
-    );
-  }
 
   logger.logContracts(
     ["TokenContract implementation", tokenContract.address],

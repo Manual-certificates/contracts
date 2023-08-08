@@ -13,6 +13,7 @@ export function parseConfig(path = "deploy/data/config.json") {
 
   nonEmptyField(configJson.tokenName, "tokenName", false);
   nonEmptyField(configJson.tokenSymbol, "tokenSymbol", false);
+  nonEmptyField(configJson.newOwner, "newOwner", false);
 
   return {
     tokenName: configJson.tokenName,
