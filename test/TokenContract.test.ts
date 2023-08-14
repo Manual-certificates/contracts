@@ -25,10 +25,14 @@ describe("TokenContract", () => {
 
     const TokenContract = await ethers.getContractFactory("TokenContract");
 
-    tokenContract = (await upgrades.deployProxy(TokenContract, [defaultName, defaultSymbol, defaultBaseURI], {
-      initializer: "__TokenContract_init",
-      kind: "uups",
-    })) as TokenContract;
+    tokenContract = (await upgrades.deployProxy(
+      TokenContract,
+      [defaultName, defaultSymbol, defaultBaseURI, OWNER.address],
+      {
+        initializer: "__TokenContract_init",
+        kind: "uups",
+      }
+    )) as TokenContract;
 
     await reverter.snapshot();
   });
@@ -38,9 +42,9 @@ describe("TokenContract", () => {
   describe("proxy functionality", function () {
     describe("#__TokenContract_init", function () {
       it("should not initialize twice", async function () {
-        await expect(tokenContract.__TokenContract_init(defaultName, defaultSymbol, defaultBaseURI)).to.be.revertedWith(
-          "Initializable: contract is already initialized"
-        );
+        await expect(
+          tokenContract.__TokenContract_init(defaultName, defaultSymbol, defaultBaseURI, OWNER.address)
+        ).to.be.revertedWith("Initializable: contract is already initialized");
       });
     });
 

@@ -36,7 +36,10 @@ describe("TokenContractDeployer", () => {
     describe("#deployTokenContract", function () {
       it("should deploy", async function () {
         const params = ethers.utils.defaultAbiCoder
-          .encode(["string", "string", "string"], [contractName, contractSymbol, defaultBaseURI])
+          .encode(
+            ["string", "string", "string", "address"],
+            [contractName, contractSymbol, defaultBaseURI, tokenContractDeployer.address]
+          )
           .substring(2);
 
         const encoded = TokenContract.interface.getSighash("__TokenContract_init").concat(params);
@@ -60,7 +63,7 @@ describe("TokenContractDeployer", () => {
         const uri = "uri";
 
         const params = ethers.utils.defaultAbiCoder
-          .encode(["string", "string", "string"], [name, symbol, uri])
+          .encode(["string", "string", "string", "address"], [name, symbol, uri, tokenContractDeployer.address])
           .substring(2);
 
         const encoded = TokenContract.interface.getSighash("__TokenContract_init").concat(params);

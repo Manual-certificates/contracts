@@ -20,7 +20,8 @@ contract TokenContract is
     function __TokenContract_init(
         string memory tokenName_,
         string memory tokenSymbol_,
-        string memory baseURI_
+        string memory baseURI_,
+        address newOwner_
     ) external override initializer {
         __Ownable_init();
 
@@ -29,6 +30,8 @@ contract TokenContract is
         __ERC721_init(tokenName_, tokenSymbol_);
 
         setBaseURI(baseURI_);
+
+        transferOwnership(newOwner_);
     }
 
     function mint(

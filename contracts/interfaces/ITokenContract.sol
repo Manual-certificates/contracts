@@ -10,11 +10,13 @@ interface ITokenContract {
      * @param tokenName_ The name of the token.
      * @param tokenSymbol_ The symbol of the token.
      * @param baseURI_ The base URI of the tokens.
+     * @param newOwner_ Address of the contract owner to set.
      */
     function __TokenContract_init(
         string memory tokenName_,
         string memory tokenSymbol_,
-        string memory baseURI_
+        string memory baseURI_,
+        address newOwner_
     ) external;
 
     /**
